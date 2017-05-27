@@ -1,4 +1,8 @@
+import java.io.File;
+
 import org.dom4j.Document;
+import org.dom4j.DocumentException;
+import org.dom4j.io.SAXReader;
 
 /**
  * @author  Weibin Luo
@@ -14,13 +18,22 @@ public class LTLGenerator {
 	
 	public String generate() {
 		
-		
+		// start jobs
 		
 		return null;
 	}
 	
 	private Document readXMLFile(String fileName) {
-		Document XMLFile = null;
+		SAXReader saxReader = new SAXReader();
+		
+		try {
+			File inputFile = new File(fileName);
+			Document XMLFile = saxReader.read(inputFile);
+			
+			
+		} catch (DocumentException e) {
+			e.printStackTrace();
+		}
 		return null;
 	}
 }
