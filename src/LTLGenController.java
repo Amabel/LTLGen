@@ -17,6 +17,7 @@ public class LTLGenController {
 	}
 	
 	private String readInputFileName() {
+		@SuppressWarnings("resource")
 		Scanner in = new Scanner(System.in);
 		String fileName = in.nextLine();
 		return fileName;

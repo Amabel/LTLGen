@@ -1,5 +1,4 @@
 import java.io.File;
-import java.io.FileNotFoundException;
 
 import org.dom4j.Document;
 import org.dom4j.DocumentException;
@@ -18,26 +17,28 @@ public class LTLGenerator {
 	}
 	
 	public String generate() {
-		
+		String ltlFormula = null;
 		// start jobs
-		readXMLFile();
+		Document xmlFile = readXMLFile();
+		XMLAnalyzer xmlAnalyzer = new XMLAnalyzer(xmlFile);
+		ltlFormula = xmlAnalyzer.analyze();
 		
-		return null;
+		return ltlFormula;
 	}
 	
 	private Document readXMLFile() {
+		Document xmlFile = null;
 		String fileName = this.fileName;
 		SAXReader saxReader = new SAXReader();
 		
 		try {
 			File inputFile = new File(fileName);
-			Document xmlFile = saxReader.read(inputFile);
-			System.out.println(xmlFile);
-			
+			xmlFile = saxReader.read(inputFile);
+//			System.out.println(xmlFile);
 		} catch (DocumentException e2) {
 //			e2.printStackTrace();
 			System.out.println("connot find file: " + fileName);
 		}
-		return null;
+		return xmlFile;
 	}
 }
