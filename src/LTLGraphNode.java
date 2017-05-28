@@ -1,5 +1,6 @@
 import javax.swing.tree.DefaultMutableTreeNode;
 
-public class LTLGraphNode extends DefaultMutableTreeNode {
-
+public abstract class LTLGraphNode extends DefaultMutableTreeNode {
+	private LTLGraphNodeType nodeType;
+	
 }

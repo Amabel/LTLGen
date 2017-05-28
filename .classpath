@@ -3,6 +3,7 @@
 	<classpathentry kind="src" path="src"/>
 	<classpathentry kind="lib" path="lib/dom4j-2.0.0-RC1.jar"/>
 	<classpathentry kind="lib" path="lib/jaxen-1.1.6.jar"/>
+	<classpathentry kind="lib" path="lib/guava-22.0.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>
