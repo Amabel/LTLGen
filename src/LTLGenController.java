@@ -10,7 +10,12 @@ public class LTLGenController {
 
 	public void launch() {
 		
-		String fileName = readInputFileName();
+//		String fileName = readInputFileName();
+		
+		// for debug
+//		String fileName = "examples/PtriggerQ.xml";
+		String fileName = "examples/bookstore.xml";
+		
 		ltlGenerator = new LTLGenerator(fileName);
 		ltlGenerator.generate();
 		

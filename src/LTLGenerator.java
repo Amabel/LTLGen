@@ -20,8 +20,11 @@ public class LTLGenerator {
 		String ltlFormula = null;
 		// start jobs
 		Document xmlFile = readXMLFile();
-		XMLAnalyzer xmlAnalyzer = new XMLAnalyzer(xmlFile);
-		ltlFormula = xmlAnalyzer.analyze();
+		if (xmlFile != null) {
+			XMLAnalyzer xmlAnalyzer = new XMLAnalyzer(xmlFile);
+			ltlFormula = xmlAnalyzer.analyze();
+			
+		}
 		
 		return ltlFormula;
 	}
@@ -34,7 +37,7 @@ public class LTLGenerator {
 		try {
 			File inputFile = new File(fileName);
 			xmlFile = saxReader.read(inputFile);
-//			System.out.println(xmlFile);
+			System.out.println(xmlFile);
 		} catch (DocumentException e2) {
 //			e2.printStackTrace();
 			System.out.println("connot find file: " + fileName);
