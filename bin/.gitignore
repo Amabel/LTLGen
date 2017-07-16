@@ -1,4 +1,10 @@
+/LTLGen.class
+/LTLGenController.class
+/LTLGenerator.class
+/LTLGraphNode.class
 /LTLGraphNodeType.class
-/LTLGraphNodeType$1.class
 /LTLGraphProposition.class
 /LTLGraphTransition.class
+/XMLAnalyzer.class
+/XMLCreator.class
+/patterns/
