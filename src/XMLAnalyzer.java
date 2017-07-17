@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
+import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import formula.LTL;
 import patterns.Absence;
@@ -67,17 +68,20 @@ public class XMLAnalyzer {
 				// existence: exist(P)
 				// bounded existence: P(..m)
 				// universality: univ(P)
-				Pattern pattern = Pattern.compile("(.*)\\((.*)\\)");
+				Pattern pattern = Pattern.compile("(.*)\\((.*)\\)\\[*(.*?)\\]*");
 				Matcher m = pattern.matcher(respName);
 				if (!m.matches()) {
 					// error incorrect resp name 
+					System.out.println("no matches with RE.");
 				} else {
 					// match the pattern [not, exist, be, univ]
 					// e.g.: not(P)
 					// group(1): not, group(2): P
 					String g1 = m.group(1);
 					String g2 = m.group(2);
+					String g3 = m.group(3);
 					
+//					System.out.println("g3: " + g3);
 					
 					switch (g1) {
 					case "not":
@@ -91,7 +95,7 @@ public class XMLAnalyzer {
 					case "be":
 					case "bounded existence":
 						// bounded existence
-						ltl = new BoundedExistence(g2, scope).generateLTL();
+						ltl = new BoundedExistence(g2, scope, g3).generateLTL();
 						break;
 					case "univ":
 						// universality

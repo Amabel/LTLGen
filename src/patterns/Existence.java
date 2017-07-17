@@ -41,11 +41,11 @@ public class Existence extends Pattern {
 			// between or until
 			if (r.charAt(r.length() - 1) == '*') {
 				// until
-				ltlFormula = "[](" + q + "&!" + r + "->(!" + r + "U(" + p + "&!" + r + ")))";
+				ltlFormula = "[](" + q + "&&!" + r + "->(!" + r + "U(" + p + "&&!" + r + ")))";
 				ltlScope = "After Q until R";
 			} else {
 				//between
-				ltlFormula = "[](" + q + "&!" + r + "->(!" + r + "W(" + p + "&!" + r + ")))";
+				ltlFormula = "[](" + q + "&&!" + r + "->(!" + r + "W(" + p + "&&!" + r + ")))";
 				ltlScope = "Between Q and R";
 			}
 		}

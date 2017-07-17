@@ -42,7 +42,7 @@ public class Absence extends Pattern {
 			// between or until
 			if (r.charAt(r.length() - 1) == '*') {
 				// until
-				ltlFormula = "[](" + q + "&!" + r + "->(!" + p + "W" + r + "))";
+				ltlFormula = "[](" + q + "&&!" + r + "->(!" + p + "W" + r + "))";
 				ltlScope = "After Q until R";
 			} else {
 				//between

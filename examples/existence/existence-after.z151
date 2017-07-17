@@ -27,7 +27,7 @@
             </connections>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="StartPoint">
                 <id>12</id>
-                <name>call_ActiveTask(taskA.id)</name>
+                <name>Q</name>
                 <metadata>
                     <name>jUCMNav StartPoint local</name>
                     <value>false</value>
@@ -59,7 +59,7 @@
             </nodes>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="EndPoint">
                 <id>13</id>
-                <name></name>
+                <name>R*</name>
                 <metadata>
                     <name>jUCMNav EndPoint local</name>
                     <value>false</value>
@@ -104,7 +104,7 @@
         </ucmMaps>
         <responsibilities>
             <id>14</id>
-            <name>exist(currentTaskID==taskA.id)</name>
+            <name>be(P)</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>

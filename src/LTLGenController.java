@@ -11,7 +11,7 @@ public class LTLGenController {
 	private LTLGenerator ltlGenerator;
 
 	public void launch() {
-		int debugMode = 0;
+		int debugMode = 1;
 		
 		String fileName = null;
 		
