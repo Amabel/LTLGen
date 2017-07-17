@@ -4,6 +4,8 @@ import org.dom4j.Document;
 import org.dom4j.DocumentException;
 import org.dom4j.io.SAXReader;
 
+import formula.LTL;
+
 /**
  * @author  Weibin Luo
  * @version Created on 2017/05/26 17:35:26
@@ -16,17 +18,17 @@ public class LTLGenerator {
 		this.fileName = fileName;
 	}
 	
-	public String generate() {
-		String ltlFormula = null;
+	public LTL generate() {
+		LTL ltl = null;
 		// start jobs
 		Document xmlFile = readXMLFile();
 		if (xmlFile != null) {
 			XMLAnalyzer xmlAnalyzer = new XMLAnalyzer(xmlFile);
-			ltlFormula = xmlAnalyzer.analyze();
+			ltl = xmlAnalyzer.analyze();
 			
 		}
 		
-		return ltlFormula;
+		return ltl;
 	}
 	
 	private Document readXMLFile() {
@@ -37,7 +39,7 @@ public class LTLGenerator {
 		try {
 			File inputFile = new File(fileName);
 			xmlFile = saxReader.read(inputFile);
-			System.out.println(xmlFile);
+//			System.out.println(xmlFile);
 		} catch (DocumentException e2) {
 //			e2.printStackTrace();
 			System.out.println("connot find file: " + fileName);

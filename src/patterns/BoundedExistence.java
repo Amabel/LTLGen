@@ -4,13 +4,17 @@ import java.util.List;
 
 import formula.LTL;
 
-public class Universality extends Pattern {
+/**
+ * @author  Weibin Luo
+ * @version Created on 2017/07/16 23:38:42
+ */
+public class BoundedExistence extends Pattern {
 	
 	private String property;
 	private List<String> scope;
 	private LTL ltl;
-	
-	public Universality(String property, List<String> scope) {
+
+	public BoundedExistence(String property, List<String> scope) {
 		super(property, scope);
 		this.property = property;
 		this.scope = scope;
@@ -18,7 +22,7 @@ public class Universality extends Pattern {
 	
 	public LTL generateLTL() {
 		String ltlScope = null;
-		String pattern = "Universality";
+		String pattern = "Bounded Existence";
 		String ltlFormula = null;
 		
 		String p = "(" + property + ")";
@@ -27,25 +31,25 @@ public class Universality extends Pattern {
 		
 		if (q.equals("()") && r.equals("()")) {
 			// globally
-			ltlFormula = "[](" + p + ")";
+			ltlFormula = "[](!" + p + ")";
 			ltlScope = "Globally";
 		} else if (q.equals("()")) {
 			// before
-			ltlFormula = "<>" + r + "->(" + p + "U" + r + ")";
+			ltlFormula = "<>" + r + "->(!" + p + "U" + r + ")";
 			ltlScope = "Before R";
 		} else if (r.equals("()")) {
 			// after
-			ltlFormula = "[](" + q + "->[](" + p + "))";
+			ltlFormula = "[](" + q + "->[](!" + p + "))";
 			ltlScope = "After Q";
 		} else {
 			// between or until
 			if (r.charAt(r.length() - 1) == '*') {
 				// until
-				ltlFormula = "[](" + q + "&!" + r + "->(" + p + "W" + r + "))";
+				ltlFormula = "[](" + q + "&!" + r + "->(!" + p + "W" + r + "))";
 				ltlScope = "After Q until R";
 			} else {
 				//between
-				ltlFormula = "[](" + q + "&&!" + r + "&&<>" + r + ")->(" + p + "U" + r + ")";
+				ltlFormula = "[](" + q + "&&!" + r + "&&<>" + r + ")->(!" + p + "U" + r + ")";
 				ltlScope = "Between Q and R";
 			}
 		}
@@ -54,4 +58,5 @@ public class Universality extends Pattern {
 		ltl = new LTL(pattern, ltlScope, ltlFormula);
 		return ltl;
 	}
+
 }

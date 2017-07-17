@@ -7,6 +7,12 @@ import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
 
+import formula.LTL;
+import patterns.Absence;
+import patterns.BoundedExistence;
+import patterns.Existence;
+import patterns.Universality;
+
 public class XMLAnalyzer {
 	
 	Document xmlFile;
@@ -15,19 +21,24 @@ public class XMLAnalyzer {
 		this.xmlFile = xmlFile;
 	}
 	
-	public String analyze() {
-		String ltlFormula = null;
-		analyzeXMLFile();
-		return ltlFormula;
+	public LTL analyze() {
+		LTL ltl = analyzeXMLFile();
+		return ltl;
 	}
 
-	private void analyzeXMLFile() {
+	
+	private LTL analyzeXMLFile() {
+		LTL ltl = null;
+		// find scope;
+		// scope.get(0): startPoint, scope.get(1): endPoint
+		List<String> scope = findScope();
+		
 		// select attribute: [@*[name()='xsi:type']]
 		String xPathNodes = "//ucmMaps/nodes[@*[name()='xsi:type']]";
 		List<?> nodesList = xmlFile.selectNodes(xPathNodes);
 		
 		// # of <nodes>
-		System.out.println("Found <nodes> with attribute @xsi:type: " + nodesList.size());
+//		System.out.println("Found <nodes> with attribute @xsi:type: " + nodesList.size());
 		
 		// # of <nodes> with @xsi:type=DirectionArrow
 		int count = findNode(nodesList, "type", "DirectionArrow").size();
@@ -49,9 +60,9 @@ public class XMLAnalyzer {
 				String xPathRespName = "//responsibilities/name";
 				String respName = ((Element)(xmlFile.selectNodes(xPathRespName).get(0))).getText();
 				
-				System.out.println(respName);
+//				System.out.println(respName);
 				
-				// REs
+				// RE
 				// absence: not(P)
 				// existence: exist(P)
 				// bounded existence: P(..m)
@@ -67,33 +78,32 @@ public class XMLAnalyzer {
 					String g1 = m.group(1);
 					String g2 = m.group(2);
 					
-//					if (g1.equals("not")) {
-//						// absence pattern
-//					} else if (g1.)
+					
 					switch (g1) {
 					case "not":
 						// absence
+						ltl = new Absence(g2, scope).generateLTL();
 						break;
 					case "exist":
 						// existence
-						
+						ltl = new Existence(g2, scope).generateLTL();
 						break;
 					case "be":
+					case "bounded existence":
 						// bounded existence
+						ltl = new BoundedExistence(g2, scope).generateLTL();
 						break;
 					case "univ":
 						// universality
-						
+						ltl = new Universality(g2, scope).generateLTL();
 						break;
 					default:
 						// error: no matching patterns
+						System.out.println("no matching patterns");
+						System.out.println("g1: " + g1 + ", g2: " + g2); 
 						break;
 					}
 				}
-				
-				
-				
-				
 			}
 			
 		} else if (count == 1) {
@@ -103,13 +113,29 @@ public class XMLAnalyzer {
 			// error: too many direction arrows
 		}
 		
+		return ltl;
+	}
+	
+	private List<String> findScope() {
+		List<String> list = new ArrayList<>();
+		// find the name of StartPoint and EndPoint
+		String xPathStartPointName = "//ucmMaps/nodes[@*[name()='xsi:type']='StartPoint']/name";
+		String startPointName = ((Element)(xmlFile.selectNodes(xPathStartPointName).get(0))).getText();
+//		startPointName = replaceEscChar(startPointName);		
+		list.add(startPointName);
+		// endPoint
+		String xPathEndPointName = "//ucmMaps/nodes[@*[name()='xsi:type']='EndPoint']/name";
+		String endPointName = ((Element)(xmlFile.selectNodes(xPathEndPointName).get(0))).getText();
+//		endPointName = replaceEscChar(endPointName);
+		list.add(endPointName);
+		return list;
 	}
 	
 	private List<Element> findNode(List<?> list, String attributeName, String attributeValue) {
 		List<Element> ret = new ArrayList<>();
 		for (Object o : list) {
 			Element element = (Element)o;
-			System.out.println(element.attribute(attributeName).getValue());
+//			System.out.println(element.attribute(attributeName).getValue());
 			Attribute attribute = element.attribute(attributeName);
 			if (attribute != null) {
 				String value = attribute.getValue();
@@ -119,13 +145,5 @@ public class XMLAnalyzer {
 			}
 		}
 		return ret;
-	}
-	
-	private void dumpNodeList(List<?> list) {
-		for (Object o : list) {
-			Element element = (Element)o;
-//			System.out.println(element.attribute("type").getValue());
-			System.out.println(element);
-		}
 	}
 }

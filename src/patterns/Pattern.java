@@ -1,12 +1,20 @@
 package patterns;
 
+import java.util.List;
+
 public abstract class Pattern {
 	
-	private String pattern = "default pattern";
+	private String property;
+	List<String> scope;
+	
+	public Pattern(String property, List<String> scope) {
+		this.property = property;
+		this.scope = scope;
+	}
 	
 	private String generateLTL() {
 		
-		return this.pattern;
+		return "";
 	}
 
 	
