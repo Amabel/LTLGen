@@ -42,8 +42,6 @@ public class BoundedExistence extends Pattern {
 				ltlScope = "Globally";
 			} else if (q.equals("()")) {
 				// before
-//				ltlFormula = "<>" + R + " -> ((!" + P + "&& !" + R + ") U"
-//						+ " (" + R + " | ((" + P + "& !" + R + ") U (" + R + "| ((!" + P + " && !" + R + ") U (" + R + "| ((" + P + "&& !" + R + ") U (" + R + " || (!P U R)))))))))";
 				ltlFormula = "<>@R -> ((!@P && !@R) U (@R || ((@P && !@R) U (@R || ((!@P && !@R) U (@R || ((@P && !@R) U (@R || (!@P U @R)))))))))";
 				ltlFormula = replaceProperty(ltlFormula, p, q, r);
 				ltlScope = "Before R";

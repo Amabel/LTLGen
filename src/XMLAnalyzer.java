@@ -6,12 +6,13 @@ import java.util.regex.Pattern;
 import org.dom4j.Attribute;
 import org.dom4j.Document;
 import org.dom4j.Element;
-import org.omg.PortableInterceptor.SYSTEM_EXCEPTION;
 
 import formula.LTL;
 import patterns.Absence;
 import patterns.BoundedExistence;
 import patterns.Existence;
+import patterns.Precedence;
+import patterns.Response;
 import patterns.Universality;
 
 public class XMLAnalyzer {
@@ -54,6 +55,7 @@ public class XMLAnalyzer {
 			int nodesRespRefCount = nodesRespRefList.size();
 			if (nodesRespRefCount != 1) {
 				// error: too many respRefs
+				System.out.println("too mant respRefs");
 			} else {
 				// decide the pattern
 				
@@ -73,6 +75,7 @@ public class XMLAnalyzer {
 				if (!m.matches()) {
 					// error incorrect resp name 
 					System.out.println("no matches with RE.");
+					return null;
 				} else {
 					// match the pattern [not, exist, be, univ]
 					// e.g.: not(P)
@@ -80,7 +83,6 @@ public class XMLAnalyzer {
 					String g1 = m.group(1);
 					String g2 = m.group(2);
 					String g3 = m.group(3);
-					
 //					System.out.println("g3: " + g3);
 					
 					switch (g1) {
@@ -105,16 +107,100 @@ public class XMLAnalyzer {
 						// error: no matching patterns
 						System.out.println("no matching patterns");
 						System.out.println("g1: " + g1 + ", g2: " + g2); 
-						break;
+						return null;
 					}
 				}
 			}
 			
 		} else if (count == 1) {
 			// 1 direction arrow
-			// precedence, response, 2 of chain...
+			// precedence, response, chain precedence, chain response
+			List<Element> nodesRespRefList = findNode(nodesList, "type", "RespRef");
+			int nodesRespRefCount = nodesRespRefList.size();
+			if (nodesRespRefCount == 2) {
+				// 2 respRefs
+				// response, precedence
+				
+				// find the name of 2 respRefs
+//				String pName = nodesRespRefList.get(0).selectSingleNode("/name").getText();
+//				String sName = nodesRespRefList.get(1).selectSingleNode("/name").getText();
+				String xPathRespName = "//responsibilities/name";
+				String pName = ((Element)(xmlFile.selectNodes(xPathRespName).get(0))).getText();
+				String sName = ((Element)(xmlFile.selectNodes(xPathRespName).get(1))).getText();
+				
+				// find property P and S
+				Pattern pattern = Pattern.compile("(.*?)\\((.*)\\)(\\*)??");
+				Matcher mp = pattern.matcher(pName);
+				Matcher ms = pattern.matcher(sName);
+				
+				if (!mp.matches() || !ms.matches()) {
+					// error: incorrect resp name 
+					System.out.println("no matches with RE.");
+					return null;
+				}
+				// pName and sName matches
+				String pg1 = mp.group(1);
+				String sg1 = ms.group(1);
+				// find the pattern (response or precedence) by the position of '*'
+				if (pName.charAt(pName.length()-1) == '*' && sName.charAt(sName.length()-1) != '*') {
+					// response
+					// P* -> Q
+					if (pg1.equals("P") && sg1.equals("Q")) {
+						String pg2 = null;
+						String sg2 = null;
+						if (mp.groupCount() == 1) {
+							pg2 = pg1.substring(0, pg1.length()-1);
+						} else {
+							pg2 = mp.group(2);
+						}
+						if (ms.groupCount() == 1) {
+							sg2 = sg1;
+						} else {
+							sg2 = ms.group(2);
+						}
+						ltl = new Response(pg2, sg2, scope).generateLTL();
+					} else {
+						// error cannot find P and Q
+						System.out.println("cannot find P and Q");
+						return null;
+					}
+				} else if (sName.charAt(sName.length()-1) == '*' && pName.charAt(pName.length()-1) != '*') {
+					// precedence
+					// P -> Q*
+					if (pg1.equals("P") && sg1.equals("Q")) {
+						String pg2 = null;
+						String sg2 = null;
+						if (mp.groupCount() == 1) {
+							pg2 = pg1.substring(0, pg1.length()-1);
+						} else {
+							pg2 = mp.group(2);
+						}
+						if (ms.groupCount() == 1) {
+							sg2 = sg1;
+						} else {
+							sg2 = ms.group(2);
+						}
+						ltl = new Precedence(pg2, sg2, scope).generateLTL();
+					} else {
+						// error cannot find P and Q
+						System.out.println("cannot find P and Q");
+						return null;
+					}
+				} else {
+					// both with '*' or no '*'
+					// error
+					System.out.println("cannot find '*'");
+				}
+				
+				
+			} else if (nodesRespRefCount > 2) {
+				// 3 or more respRefs
+				// chain response, chain precedenceß
+				
+			}
 		} else {
 			// error: too many direction arrows
+			System.out.println("too many direction arrows");
 		}
 		
 		return ltl;

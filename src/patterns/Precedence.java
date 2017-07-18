@@ -4,14 +4,14 @@ import java.util.List;
 
 import formula.LTL;
 
-public class Response {
+public class Precedence {
 	
 	private String propertyP;
 	private String propertyS;
 	private List<String> scope;
 	private LTL ltl;
 
-	public Response(String propertyP, String propertyS, List<String> scope) {
+	public Precedence(String propertyP, String propertyS, List<String> scope) {
 		this.propertyP = propertyP;
 		this.propertyS = propertyS;
 		this.scope = scope;
@@ -19,7 +19,7 @@ public class Response {
 	
 	public LTL generateLTL() {
 		String ltlScope = null;
-		String pattern = "Response";
+		String pattern = "Precedence";
 		String ltlFormula = null;
 		
 		// analyze list P and Q
@@ -30,25 +30,25 @@ public class Response {
 		
 		if (q.equals("()") && r.equals("()")) {
 			// globally
-			ltlFormula = "[](@P-><>@S)";
+			ltlFormula = "!@PW@S";
 			ltlScope = "Globally";
 		} else if (q.equals("()")) {
 			// before
-			ltlFormula = "<>@R->(@P->(!@RU(@S&&!@R)))U@R";
+			ltlFormula = "<>@R->(!@PU(@S||@R))";
 			ltlScope = "Before R";
 		} else if (r.equals("()")) {
 			// after
-			ltlFormula = "[](@Q->[](@P-><>@S))";
+			ltlFormula = "[]!@Q||<>(@Q&&(!@PW@S))";
 			ltlScope = "After Q";
 		} else {
 			// between or until
 			if (r.charAt(r.length() - 1) == '*') {
 				// until
-				ltlFormula = "[](@Q&&!@R->((@P->(!@RU(@S&&!@R)))W@R)";
+				ltlFormula = "[](@Q&&!@R->(!@PW(@S||@R)))";
 				ltlScope = "After Q until R";
 			} else {
 				//between
-				ltlFormula = "[]((@Q&&!@R&&<>@R)->(@P->(!@RU(@S&&!@R)))U@R)";
+				ltlFormula = "[]((@Q&&!@R&&<>@R)->(!@PU(@S||@R)))";
 				ltlScope = "Between Q and R";
 			} 
 		} 
@@ -66,5 +66,4 @@ public class Response {
 		ret = ret.replace(" ", "");
 		return ret;
 	}
-
 }
