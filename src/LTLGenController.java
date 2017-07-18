@@ -17,7 +17,7 @@ public class LTLGenController {
 		
 		if (debugMode == 1) {
 			// for debug
-			fileName = "examples/response/response-globally.z151";
+			fileName = "examples/precedence chain/precedence chain-globally.z151";
 		} else {
 			// input mode
 			fileName = readInputFileName();

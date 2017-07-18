@@ -12,28 +12,28 @@
             <name>Precedence</name>
             <singleton>true</singleton>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_2010030837</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_717472000</id>
                 <probability>100</probability>
                 <threshold></threshold>
                 <target>26</target>
                 <source>27</source>
             </connections>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1381658295</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_2044334891</id>
                 <probability>100</probability>
                 <threshold></threshold>
                 <target>29</target>
                 <source>26</source>
             </connections>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1079160246</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1346551504</id>
                 <probability>100</probability>
                 <threshold></threshold>
                 <target>30</target>
                 <source>29</source>
             </connections>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_472889693</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1534415882</id>
                 <probability>100</probability>
                 <threshold></threshold>
                 <target>27</target>
@@ -46,8 +46,8 @@
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1381658295</pred>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1079160246</succ>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_2044334891</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1346551504</succ>
                 <pos>
                     <x>371</x>
                     <y>217</y>
@@ -66,7 +66,7 @@
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1079160246</pred>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1346551504</pred>
                 <pos>
                     <x>454</x>
                     <y>217</y>
@@ -98,7 +98,7 @@
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_472889693</succ>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1534415882</succ>
                 <pos>
                     <x>148</x>
                     <y>217</y>
@@ -118,8 +118,8 @@
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="DirectionArrow">
                 <id>26</id>
                 <name>DirectionArrow214</name>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_2010030837</pred>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1381658295</succ>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_717472000</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_2044334891</succ>
                 <pos>
                     <x>305</x>
                     <y>217</y>
@@ -132,8 +132,8 @@
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_472889693</pred>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_2010030837</succ>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1534415882</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_717472000</succ>
                 <pos>
                     <x>227</x>
                     <y>217</y>
@@ -144,7 +144,7 @@
         </ucmMaps>
         <responsibilities>
             <id>31</id>
-            <name>P</name>
+            <name>P(b)</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>
@@ -157,7 +157,7 @@
         </responsibilities>
         <responsibilities>
             <id>32</id>
-            <name>Q*</name>
+            <name>Q(a)*</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>
@@ -199,8 +199,8 @@
     <info>
         <author>Amabel</author>
         <created>July 9, 2017 9:52:23 PM JST</created>
-        <modified>July 9, 2017 9:54:05 PM JST</modified>
-        <specVersion>3</specVersion>
+        <modified>July 18, 2017 8:13:39 PM JST</modified>
+        <specVersion>4</specVersion>
         <urnVersion>1.27</urnVersion>
     </info>
 </URNspec>

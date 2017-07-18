@@ -1,3 +1,4 @@
+import java.security.spec.MGF1ParameterSpec;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -12,7 +13,9 @@ import patterns.Absence;
 import patterns.BoundedExistence;
 import patterns.Existence;
 import patterns.Precedence;
+import patterns.PrecedenceChain;
 import patterns.Response;
+import patterns.ResponseChain;
 import patterns.Universality;
 
 public class XMLAnalyzer {
@@ -122,8 +125,6 @@ public class XMLAnalyzer {
 				// response, precedence
 				
 				// find the name of 2 respRefs
-//				String pName = nodesRespRefList.get(0).selectSingleNode("/name").getText();
-//				String sName = nodesRespRefList.get(1).selectSingleNode("/name").getText();
 				String xPathRespName = "//responsibilities/name";
 				String pName = ((Element)(xmlFile.selectNodes(xPathRespName).get(0))).getText();
 				String sName = ((Element)(xmlFile.selectNodes(xPathRespName).get(1))).getText();
@@ -141,6 +142,8 @@ public class XMLAnalyzer {
 				// pName and sName matches
 				String pg1 = mp.group(1);
 				String sg1 = ms.group(1);
+				System.out.println(mp.group(2));
+				System.out.println(ms.group(2));
 				// find the pattern (response or precedence) by the position of '*'
 				if (pName.charAt(pName.length()-1) == '*' && sName.charAt(sName.length()-1) != '*') {
 					// response
@@ -148,12 +151,12 @@ public class XMLAnalyzer {
 					if (pg1.equals("P") && sg1.equals("Q")) {
 						String pg2 = null;
 						String sg2 = null;
-						if (mp.groupCount() == 1) {
-							pg2 = pg1.substring(0, pg1.length()-1);
+						if (mp.group(2).equals("")) {
+							pg2 = pg1;
 						} else {
 							pg2 = mp.group(2);
 						}
-						if (ms.groupCount() == 1) {
+						if (ms.group(2).equals("")) {
 							sg2 = sg1;
 						} else {
 							sg2 = ms.group(2);
@@ -170,12 +173,13 @@ public class XMLAnalyzer {
 					if (pg1.equals("P") && sg1.equals("Q")) {
 						String pg2 = null;
 						String sg2 = null;
-						if (mp.groupCount() == 1) {
-							pg2 = pg1.substring(0, pg1.length()-1);
+						if (mp.group(2).equals("")) {
+							pg2 = pg1;
 						} else {
 							pg2 = mp.group(2);
+//							pg2 = "12123";
 						}
-						if (ms.groupCount() == 1) {
+						if (ms.group(2).equals("")) {
 							sg2 = sg1;
 						} else {
 							sg2 = ms.group(2);
@@ -190,17 +194,148 @@ public class XMLAnalyzer {
 					// both with '*' or no '*'
 					// error
 					System.out.println("cannot find '*'");
+					return null;
+				}
+			} else if (nodesRespRefCount == 3) {
+				// 3 or more respRefs
+				// chain response, chain precedence
+				System.out.println("chain");
+				// find the pattern 
+				// response: P* -> S, T  or S*, T* -> P
+				// precedence: P -> S*, T* or S, T -> P*
+				
+				// find the respRef left to the arrow
+				// find the id of arrow
+				String xPathDirectionArrowId = "//ucmMaps/nodes[@*[name()='xsi:type']='DirectionArrow']/id";
+				int directionArrowId = Integer.valueOf(((Element)(xmlFile.selectNodes(xPathDirectionArrowId).get(0))).getText());
+//				System.out.println("id = " + directionArrowId);
+				
+				// find connections
+				String xPathConnections = "//ucmMaps/connections";
+				List<?> connectionsList = xmlFile.selectNodes(xPathConnections);
+				int leftRespRefId = -1;
+				for (Object o : connectionsList) {
+					Element e = (Element)o;
+					int targetId = Integer.valueOf(e.elements().get(3).getText());
+					if (targetId == directionArrowId) {
+						leftRespRefId = Integer.valueOf(e.elements().get(4).getText());
+						break;
+					}
+				}
+				if (leftRespRefId != -1) {
+					String leftRespName = null;
+					String pName =null;
+					String sName =null;
+					String tName =null;
+					// find the name of leftRespRef
+					String xPathResp = "//responsibilities";
+					List<?> RespList = xmlFile.selectNodes(xPathResp);
+					for (Object o : RespList) {
+						Element e = (Element)o;
+						// set pName, sName, tName
+						String name = e.elements().get(1).getText();
+						if (name.charAt(0) == 'P') {
+							pName = name;
+						} else if (name.charAt(0) == 'S') {
+							sName = name;
+						} else if (name.charAt(0) == 'T') {
+							tName = name;
+						}
+						int respId = Integer.valueOf(e.elements().get(4).getText());
+						System.out.println(respId);
+						if (respId == leftRespRefId) {
+							leftRespName = e.elements().get(1).getText();
+						}
+					}
+					System.out.println("left id: " + leftRespRefId + " " + leftRespName);
+					
+					// find property P and S
+					Pattern pattern = Pattern.compile("(.*?)\\((.*)\\)(\\*)??");
+					Matcher mp = pattern.matcher(pName);
+					Matcher ms = pattern.matcher(sName);
+					Matcher mt = pattern.matcher(tName);
+					if (!mp.matches() || !ms.matches() || !mt.matches()) {
+						// error: incorrect resp name 
+						System.out.println("no matches with RE.");
+						return null;
+					}
+					String pg1 = mp.group(1);
+					String sg1 = ms.group(1);
+					String tg1 = mt.group(1);
+					String pg2 = null;
+					String sg2 = null;
+					String tg2 = null;
+					
+					if (pg1.equals("P") && sg1.equals("S") && tg1.equals("T")) {
+						if (mp.group(2).equals("")) {
+							pg2 = pg1;
+						} else {
+							pg2 = mp.group(2);
+						}
+						if (ms.group(2).equals("")) {
+							sg2 = sg1;
+						} else {
+							sg2 = ms.group(2);
+						}
+						if (mt.group(2).equals("")) {
+							tg2 = tg1;
+						} else {
+							tg2 = mt.group(2);
+						}
+						System.out.println(sg1);
+					} else {
+						// error cannot find P and Q
+						System.out.println("cannot find P and Q");
+						return null;
+					}
+					
+					// analyze the name of the left resp
+					// if contains '*' then response, otherwise precedence
+					if (leftRespName.charAt(leftRespName.length()-1) == '*') {
+						// response
+						// if contains P then P* -> S, T
+						// otherwise S*, T* -> P
+						if (leftRespName.charAt(0) == 'P') {
+							ltl = new ResponseChain(pg2, sg2, tg2, scope, 2).generateLTL();
+						} else if (leftRespName.charAt(0) == 'T'){
+							ltl = new ResponseChain(pg2, sg2, tg2, scope, 1).generateLTL();
+						} else {
+							// error: cannot find P or T
+							System.out.println("cannot find P or T");
+						}
+						
+					} else {
+						// precedence
+						// if contains P then P -> S*, T*
+						// otherwise S, T -> P*
+						if (leftRespName.charAt(0) == 'P') {
+							ltl = new PrecedenceChain(pg2, sg2, tg2, scope, 2).generateLTL();
+						} else if (leftRespName.charAt(0) == 'T'){
+							ltl = new PrecedenceChain(pg2, sg2, tg2, scope, 1).generateLTL();
+						} else {
+							// error: cannot find P or T
+							System.out.println("cannot find P or T");
+						}
+					}
+					
+				} else {
+					// error: cannot find leftRespRef
+					System.out.println("cannot find leftRespRef");
+					return null;
 				}
 				
 				
-			} else if (nodesRespRefCount > 2) {
-				// 3 or more respRefs
-				// chain response, chain precedenceß
 				
+				
+			} else if (nodesRespRefCount > 3) {
+				// error: too many respRefs
+				System.out.println("too many respRefs: " + nodesRespRefCount);
+				return null;
 			}
 		} else {
 			// error: too many direction arrows
 			System.out.println("too many direction arrows");
+			return null;
 		}
 		
 		return ltl;
