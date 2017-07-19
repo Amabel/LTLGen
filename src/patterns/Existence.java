@@ -31,11 +31,11 @@ public class Existence extends Pattern {
 			ltlScope = "Globally";
 		} else if (q.equals("()")) {
 			// before
-			ltlFormula = "!" + r + "W(" + p + "&!" + r + ")";
+			ltlFormula = "!" + r + "W(" + p + "&&!" + r + ")";
 			ltlScope = "Before R";
 		} else if (r.equals("()")) {
 			// after
-			ltlFormula = "[](!" + q + "|<>(" + q + "&<>" + p + "))";
+			ltlFormula = "[](!" + q + "||<>(" + q + "&&<>" + p + "))";
 			ltlScope = "After Q";
 		} else {
 			// between or until
