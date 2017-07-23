@@ -11,13 +11,13 @@ public class LTLGenController {
 	private LTLGenerator ltlGenerator;
 
 	public void launch() {
-		int debugMode = 1;
+		int debugMode = 0;
 		
 		String fileName = null;
 		
 		if (debugMode == 1) {
 			// for debug
-			fileName = "examples/precedence chain/precedence chain-globally.z151";
+			fileName = "examples/response chain/response chain-globally.z151";
 		} else {
 			// input mode
 			fileName = readInputFileName();

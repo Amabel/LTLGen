@@ -199,7 +199,7 @@ public class XMLAnalyzer {
 			} else if (nodesRespRefCount == 3) {
 				// 3 or more respRefs
 				// chain response, chain precedence
-				System.out.println("chain");
+				
 				// find the pattern 
 				// response: P* -> S, T  or S*, T* -> P
 				// precedence: P -> S*, T* or S, T -> P*
@@ -242,12 +242,10 @@ public class XMLAnalyzer {
 							tName = name;
 						}
 						int respId = Integer.valueOf(e.elements().get(4).getText());
-						System.out.println(respId);
 						if (respId == leftRespRefId) {
 							leftRespName = e.elements().get(1).getText();
 						}
 					}
-					System.out.println("left id: " + leftRespRefId + " " + leftRespName);
 					
 					// find property P and S
 					Pattern pattern = Pattern.compile("(.*?)\\((.*)\\)(\\*)??");
@@ -282,7 +280,6 @@ public class XMLAnalyzer {
 						} else {
 							tg2 = mt.group(2);
 						}
-						System.out.println(sg1);
 					} else {
 						// error cannot find P and Q
 						System.out.println("cannot find P and Q");
