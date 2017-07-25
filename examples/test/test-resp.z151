@@ -9,40 +9,38 @@
         </scenarioGroups>
         <ucmMaps>
             <id>2</id>
-            <name>Bounded Existence</name>
+            <name>UCMmap2</name>
             <singleton>true</singleton>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_889509847</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_2095922497</id>
                 <probability>100</probability>
                 <threshold></threshold>
-                <target>13</target>
+                <target>23</target>
                 <source>11</source>
             </connections>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1297060887</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1289937966</id>
                 <probability>100</probability>
                 <threshold></threshold>
-                <target>11</target>
-                <source>12</source>
+                <target>25</target>
+                <source>19</source>
             </connections>
-            <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RespRef">
-                <id>11</id>
-                <name>RespRef170</name>
-                <label>
-                    <deltaX>0</deltaX>
-                    <deltaY>0</deltaY>
-                </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1297060887</pred>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_889509847</succ>
-                <pos>
-                    <x>224</x>
-                    <y>164</y>
-                </pos>
-                <repetitionCount>1</repetitionCount>
-                <respDef>14</respDef>
-            </nodes>
+            <connections>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1943213628</id>
+                <probability>100</probability>
+                <threshold></threshold>
+                <target>19</target>
+                <source>23</source>
+            </connections>
+            <connections>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_333240624</id>
+                <probability>100</probability>
+                <threshold></threshold>
+                <target>13</target>
+                <source>25</source>
+            </connections>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="StartPoint">
-                <id>12</id>
+                <id>11</id>
                 <name></name>
                 <metadata>
                     <name>jUCMNav StartPoint local</name>
@@ -56,10 +54,10 @@
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1297060887</succ>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_2095922497</succ>
                 <pos>
-                    <x>124</x>
-                    <y>164</y>
+                    <x>43</x>
+                    <y>225</y>
                 </pos>
                 <precondition>
                     <expression>true</expression>
@@ -84,10 +82,10 @@
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_889509847</pred>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_333240624</pred>
                 <pos>
-                    <x>324</x>
-                    <y>164</y>
+                    <x>601</x>
+                    <y>212</y>
                 </pos>
                 <postcondition>
                     <expression>true</expression>
@@ -101,10 +99,52 @@
                     </label>
                 </postcondition>
             </nodes>
+            <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="DirectionArrow">
+                <id>19</id>
+                <name>DirectionArrow19</name>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1943213628</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1289937966</succ>
+                <pos>
+                    <x>332</x>
+                    <y>213</y>
+                </pos>
+            </nodes>
+            <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RespRef">
+                <id>23</id>
+                <name>RespRef23</name>
+                <label>
+                    <deltaX>0</deltaX>
+                    <deltaY>0</deltaY>
+                </label>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_2095922497</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1943213628</succ>
+                <pos>
+                    <x>161</x>
+                    <y>214</y>
+                </pos>
+                <repetitionCount>1</repetitionCount>
+                <respDef>22</respDef>
+            </nodes>
+            <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RespRef">
+                <id>25</id>
+                <name>RespRef25</name>
+                <label>
+                    <deltaX>0</deltaX>
+                    <deltaY>0</deltaY>
+                </label>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1289937966</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_333240624</succ>
+                <pos>
+                    <x>475</x>
+                    <y>201</y>
+                </pos>
+                <repetitionCount>1</repetitionCount>
+                <respDef>24</respDef>
+            </nodes>
         </ucmMaps>
         <responsibilities>
-            <id>14</id>
-            <name>P(..m)</name>
+            <id>22</id>
+            <name>P(taskA.call_TerminateTask &amp;&amp; numActiveTask==1)*</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>
@@ -113,7 +153,20 @@
                 <name>jUCMNav Responsibility empty</name>
                 <value>false</value>
             </metadata>
-            <respRefs>11</respRefs>
+            <respRefs>23</respRefs>
+        </responsibilities>
+        <responsibilities>
+            <id>24</id>
+            <name>Q()</name>
+            <metadata>
+                <name>jUCMNav Responsibility context</name>
+                <value>false</value>
+            </metadata>
+            <metadata>
+                <name>jUCMNav Responsibility empty</name>
+                <value>false</value>
+            </metadata>
+            <respRefs>25</respRefs>
         </responsibilities>
         <scenarioDefs>
             <id>6</id>
@@ -145,8 +198,8 @@
     </grlspec>
     <info>
         <author>Amabel</author>
-        <created>July 9, 2017 9:51:07 PM JST</created>
-        <modified>July 9, 2017 9:53:37 PM JST</modified>
+        <created>July 25, 2017 8:52:50 PM JST</created>
+        <modified>July 25, 2017 8:55:21 PM JST</modified>
         <specVersion>3</specVersion>
         <urnVersion>1.27</urnVersion>
     </info>

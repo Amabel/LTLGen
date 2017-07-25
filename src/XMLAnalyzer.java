@@ -68,7 +68,7 @@ public class XMLAnalyzer {
 				
 //				System.out.println(respName);
 				
-				// RE
+				// regular expression
 				// absence: not(P)
 				// existence: exist(P)
 				// bounded existence: P(..m)
@@ -99,6 +99,7 @@ public class XMLAnalyzer {
 						break;
 					case "be":
 					case "bounded existence":
+					case "bounde":
 						// bounded existence
 						ltl = new BoundedExistence(g2, scope, g3).generateLTL();
 						break;
@@ -142,8 +143,8 @@ public class XMLAnalyzer {
 				// pName and sName matches
 				String pg1 = mp.group(1);
 				String sg1 = ms.group(1);
-				System.out.println(mp.group(2));
-				System.out.println(ms.group(2));
+//				System.out.println(mp.group(2));
+//				System.out.println(ms.group(2));
 				// find the pattern (response or precedence) by the position of '*'
 				if (pName.charAt(pName.length()-1) == '*' && sName.charAt(sName.length()-1) != '*') {
 					// response
@@ -177,7 +178,6 @@ public class XMLAnalyzer {
 							pg2 = pg1;
 						} else {
 							pg2 = mp.group(2);
-//							pg2 = "12123";
 						}
 						if (ms.group(2).equals("")) {
 							sg2 = sg1;
