@@ -12,36 +12,36 @@
             <name>UCMmap2</name>
             <singleton>true</singleton>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_108286680</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1152685687</id>
                 <probability>100</probability>
                 <threshold></threshold>
-                <target>23</target>
+                <target>35</target>
                 <source>11</source>
             </connections>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1892411897</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_2075966171</id>
                 <probability>100</probability>
                 <threshold></threshold>
-                <target>25</target>
-                <source>19</source>
+                <target>37</target>
+                <source>30</source>
             </connections>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1709988478</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_477846706</id>
                 <probability>100</probability>
                 <threshold></threshold>
-                <target>19</target>
-                <source>23</source>
+                <target>30</target>
+                <source>35</source>
             </connections>
             <connections>
-                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_253944263</id>
+                <id>Z151_id_ucm.map.impl.NodeConnectionImpl_1358111339</id>
                 <probability>100</probability>
                 <threshold></threshold>
                 <target>13</target>
-                <source>25</source>
+                <source>37</source>
             </connections>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="StartPoint">
                 <id>11</id>
-                <name></name>
+                <name>callActivateTask==true</name>
                 <metadata>
                     <name>jUCMNav StartPoint local</name>
                     <value>false</value>
@@ -51,13 +51,13 @@
                     <value>None</value>
                 </metadata>
                 <label>
-                    <deltaX>0</deltaX>
-                    <deltaY>0</deltaY>
+                    <deltaX>5</deltaX>
+                    <deltaY>-52</deltaY>
                 </label>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_108286680</succ>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1152685687</succ>
                 <pos>
-                    <x>43</x>
-                    <y>225</y>
+                    <x>91</x>
+                    <y>141</y>
                 </pos>
                 <precondition>
                     <expression>true</expression>
@@ -73,7 +73,7 @@
             </nodes>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="EndPoint">
                 <id>13</id>
-                <name></name>
+                <name>callActivateTask==false</name>
                 <metadata>
                     <name>jUCMNav EndPoint local</name>
                     <value>false</value>
@@ -82,10 +82,10 @@
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_253944263</pred>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1358111339</pred>
                 <pos>
-                    <x>601</x>
-                    <y>201</y>
+                    <x>751</x>
+                    <y>352</y>
                 </pos>
                 <postcondition>
                     <expression>true</expression>
@@ -100,51 +100,51 @@
                 </postcondition>
             </nodes>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="DirectionArrow">
-                <id>19</id>
-                <name>DirectionArrow19</name>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1709988478</pred>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1892411897</succ>
+                <id>30</id>
+                <name>DirectionArrow30</name>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_477846706</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_2075966171</succ>
                 <pos>
-                    <x>332</x>
-                    <y>213</y>
+                    <x>506</x>
+                    <y>271</y>
                 </pos>
             </nodes>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RespRef">
-                <id>23</id>
-                <name>RespRef23</name>
+                <id>35</id>
+                <name>RespRef35</name>
                 <label>
                     <deltaX>0</deltaX>
                     <deltaY>0</deltaY>
                 </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_108286680</pred>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1709988478</succ>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1152685687</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_477846706</succ>
                 <pos>
-                    <x>161</x>
-                    <y>214</y>
+                    <x>465</x>
+                    <y>149</y>
                 </pos>
                 <repetitionCount>1</repetitionCount>
-                <respDef>22</respDef>
+                <respDef>34</respDef>
             </nodes>
             <nodes xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="RespRef">
-                <id>25</id>
-                <name>RespRef25</name>
+                <id>37</id>
+                <name>RespRef37</name>
                 <label>
-                    <deltaX>0</deltaX>
-                    <deltaY>0</deltaY>
+                    <deltaX>3</deltaX>
+                    <deltaY>-51</deltaY>
                 </label>
-                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_1892411897</pred>
-                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_253944263</succ>
+                <pred>Z151_id_ucm.map.impl.NodeConnectionImpl_2075966171</pred>
+                <succ>Z151_id_ucm.map.impl.NodeConnectionImpl_1358111339</succ>
                 <pos>
-                    <x>475</x>
-                    <y>201</y>
+                    <x>587</x>
+                    <y>352</y>
                 </pos>
                 <repetitionCount>1</repetitionCount>
-                <respDef>24</respDef>
+                <respDef>36</respDef>
             </nodes>
         </ucmMaps>
         <responsibilities>
-            <id>22</id>
-            <name>(act_tar_state == SUSPENDED &amp;&amp; call_act == 1)*</name>
+            <id>34</id>
+            <name>P((aT_srcIndex==0)&amp;&amp;(aT_index==1)&amp;&amp;(tcb[0].t_cur_pri==tcb[1].t_cur_pri)&amp;&amp;(tcb[1].actcnt&gt;0)&amp;&amp;(tcb[1].t_state==READY))*</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>
@@ -153,11 +153,11 @@
                 <name>jUCMNav Responsibility empty</name>
                 <value>false</value>
             </metadata>
-            <respRefs>23</respRefs>
+            <respRefs>35</respRefs>
         </responsibilities>
         <responsibilities>
-            <id>24</id>
-            <name>act_tar_state == READY</name>
+            <id>36</id>
+            <name>Q(tcb[1].t_state==READY)</name>
             <metadata>
                 <name>jUCMNav Responsibility context</name>
                 <value>false</value>
@@ -166,7 +166,7 @@
                 <name>jUCMNav Responsibility empty</name>
                 <value>false</value>
             </metadata>
-            <respRefs>25</respRefs>
+            <respRefs>37</respRefs>
         </responsibilities>
         <scenarioDefs>
             <id>6</id>
@@ -198,9 +198,9 @@
     </grlspec>
     <info>
         <author>Amabel</author>
-        <created>July 25, 2017 8:52:50 PM JST</created>
-        <modified>July 25, 2017 8:55:21 PM JST</modified>
-        <specVersion>3</specVersion>
+        <created>September 6, 2017 11:26:40 AM JST</created>
+        <modified>September 6, 2017 3:04:12 PM JST</modified>
+        <specVersion>37</specVersion>
         <urnVersion>1.27</urnVersion>
     </info>
 </URNspec>
